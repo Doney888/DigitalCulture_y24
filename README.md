@@ -340,7 +340,7 @@ Digital culture course solutions (y24 version)
   
 ---
 
-## Лабораторная работа 5: Отладка и профилирование
+## Лабораторная работа 7: Виртуализация и контейнеры
 
 - **Условие**:   В этом задании вы научитесь работать с Docker. Для начала скачайте Docker Desktop (для Windows, Linux и Mac OS) или Docker Engine (для Linux), если вы этого ещё не сделали.
 Мы подготовили для вас Docker-контейнер. Скачайте его: docker pull nerc.itmo.ru:32517/465265:build-8620804cbb0801ca. Используя материал лекции и документацию Docker, выполните несколько заданий. В каждом задании вам нужно будет получить ключ — строку вида {abcdef}. Её и нужно сдать в соответствующее поле.
@@ -377,4 +377,97 @@ Digital culture course solutions (y24 version)
 - **Условие**: Когда мы собирали контейнер, мы добавили ключ в переменную окружения LOST_KEY, но её кто-то очистил. Посмотрите, как мы собирали контейнер и найдите переменную.
 - **Решение**: `sudo docker history --no-trunc ae4439816a32`
 
+---
+
+## Лабораторная работа 8: Отладка и профилирование
+
+- **Условие**:   В этом задании вы научитесь работать в консольном редакторе ViM.
+В этом задании вам предстоит пройти множество уровней. В каждом уровне вам необходимо исправить ошибку в файле: баг, неправильно написанное слово, лишняя строка и так далее.
+Количество нажатий клавиш для исправления в каждом задании ограничено. Вверху страницы указано число уже сделанных вами нажатий и максимально доступное количество на данном уровне.
+Нажмите кнопку «Уровни» вверху страницы, чтобы выбрать уровень. Когда вы исправите файл, нажмите кнопку «Проверить». Для того, чтобы начать уровень заново, нажмите кнопку «Сбросить».
+Вы можете выполнять уровни в произвольном порядке. 
+- **Сайт с задачками**: [ссылка на сайт с условием задания]([./lab2/task1_condition.md](https://nerc.itmo.ru/teaching/intro/vim/editor/))
+- **Решение**: Решение не прилагается (тяжело воспроизвести)
+  
+---
+
+
+## Лабораторная работа 9: Введение в базы данных
+
+- **Условие**:    Для выполнения этого задания вам понадобится Docker и docker-compose (на Linux) или Docker Desktop (для Windows и macOS).
+Скачайте и разархивируйте архив. Запустите контейнеры с базой данных и phpMyAdmin командой docker-compose up -d. Убедитесь, что на http://localhost:88 открывается phpMyAdmin.
+Для каждого задания напишите SQL-запрос и сдайте его в соответствующее поле. В отправляемых запросах не нужно добавлять USE bloggle в начало.
+
+### Задание 1: 
+- **Условие**: Выведите кол-во пользователей, у кого установлен пароль (то есть passwordHash не равен NULL).
+- **Решение**: `SELECT COUNT(*) FROM User WHERE passwordHash IS NOT NULL;`
+  
+### Задание 2: 
+- **Условие**: Выведите идентификаторы авторов — пользователей, которые опубликовали хотя бы один пост. Идентификаторы отсортируйте по возрастанию.
+- **Решение**: `SELECT u.id FROM User u JOIN Post p ON u.id = p.userId GROUP by u.id HAVING COUNT(p.id) > 0 ORDER BY u.id;`
+
+### Задание 3: 
+- **Условие**: Выведите таблицу со всеми постами из двух столбцов — «название поста» (postTitle) и «имя автора» (authorName). Отсортируйте данные по возрастанию времени публикации поста, а при совпадении времени — по ID поста. 
+- **Решение**: `SELECT p.title AS postTitle, u.name as authorName FROM Post p JOIN User u ON p.userId = u.id ORDER BY p.creationTime, p.id;`
+
+### Задание 4: 
+- **Условие**: Для каждого автора (как в задании 2) выведите название его первого поста — поста с минимальным временем публикации, а если таких несколько — с максимальным ID. Отсортируйте список по возрастанию времени публикации, при равенстве — по убыванию ID поста. 
+- **Решение**: `WITH FirstPosts AS ( SELECT p.userId, p.title, p.creationTime, p.id, ROW_NUMBER() OVER (PARTITION BY p.userId ORDER BY p.creationTime, p.id DESC) AS rn FROM Post p ) SELECT fp.title AS title FROM FirstPosts fp JOIN User u ON fp.userId = u.id WHERE fp.rn = 1 ORDER BY fp.creationTime ASC, fp.id DESC;`
+
+### Задание 5: 
+- **Условие**: Выведите все даты (не времена, а именно даты, то есть дни), в которые был опубликован хотя бы один пост. Для каждой даты выведите количество постов, опубликованных в этот день. Отсортируйте данные по возрастанию даты. 
+- **Решение**: `SELECT DATE(p.creationTime) AS postCreationDate, COUNT(p.id) AS postCount FROM Post p GROUP BY postCreationDate ORDER BY postCreationDate ASC;`
+
+### Задание 6: 
+- **Условие**:  Добавьте в базу данных новую таблицу (сущность) Comment. Сущность должна быть связана с Post и User отношениями много-к-одному. У сущности должны быть столбцы id, postId, userId, text и creationTime. Используйте те же типы данных, которые используются в таблице Post. Корректно укажите внешние ключи.
+
+Добавьте следующие комментарии в этом порядке:
+postId 	userId 	text 	creationTime
+5 	3 	Account word movement of face trouble me century. 	2026-04-10 11:13:04.137167
+3 	1 	Pretty class attention guy. 	1987-09-06 17:26:05.528832
+2 	4 	Quality easy son season add nature. 	2026-02-25 09:52:58.666515
+5 	4 	Be media interesting rate. 	2010-03-03 04:35:29.118719
+4 	5 	Within a professional even. 	2007-08-20 20:55:36.966110
+2 	4 	Enjoy opportunity church talk mention religious. 	1980-03-30 16:20:25.786992
+2 	3 	Executive specific mention heart. 	1986-08-04 19:26:24.020564
+5 	4 	Piece necessary method memory. 	2008-07-12 19:45:25.031397
+4 	5 	Car sit soldier provide. 	1976-12-31 18:02:24.580481
+
+В вашем ответе сначала должны быть запросы для создания таблицы со всеми индексами, а потом запрос (или запросы) для наполнения её данными. 
+- **Решение**:
+\```
+CREATE Table Comment (
+    id  bigint(20) AUTO_INCREMENT PRIMARY KEY,
+    postId  bigint(20),
+    userId  bigint(20),
+    text longtext,
+    creationTime datetime DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (postId) REFERENCES Post (id),
+    FOREIGN KEY (userId) REFERENCES User (id)
+);
+
+INSERT INTO Comment (postId, userId, text) VALUES 
+	(5, 3, 'Account word movement of face trouble me century.'), 
+    (3, 1, 'Pretty class attention guy.'), 
+    (2, 4, 'Quality easy son season add nature.'), 
+    (5, 4, 'Be media interesting rate.'), 
+    (4, 5, 'Within a professional even.'), 
+    (2, 4, 'Enjoy opportunity church talk mention religious.'), 
+    (2, 3, 'Executive specific mention heart.'), 
+    (5, 4, 'Piece necessary method memory.'), 
+    (4, 5, 'Car sit soldier provide.');`
+\```
+
+### Задание 7: 
+- **Условие**: Отсортируйте посты по убыванию количества комментариев. Выведите ID постов в этом порядке. Если количество комментариев одинаково, сначала выведите посты с меньшим ID.
+- **Решение**:
+\```
+SELECT p.id
+FROM Post p
+LEFT JOIN Comment c ON p.id = c.postId
+GROUP BY p.id
+ORDER BY COUNT(c.id) DESC, p.id;
+\```
+
+  
 ---
