@@ -435,7 +435,7 @@ postId 	userId 	text 	creationTime
 
 В вашем ответе сначала должны быть запросы для создания таблицы со всеми индексами, а потом запрос (или запросы) для наполнения её данными. 
 - **Решение**:
-\```
+```
 CREATE Table Comment (
     id  bigint(20) AUTO_INCREMENT PRIMARY KEY,
     postId  bigint(20),
@@ -456,18 +456,18 @@ INSERT INTO Comment (postId, userId, text) VALUES
     (2, 3, 'Executive specific mention heart.'), 
     (5, 4, 'Piece necessary method memory.'), 
     (4, 5, 'Car sit soldier provide.');`
-\```
+```
 
 ### Задание 7: 
 - **Условие**: Отсортируйте посты по убыванию количества комментариев. Выведите ID постов в этом порядке. Если количество комментариев одинаково, сначала выведите посты с меньшим ID.
 - **Решение**:
-\```
+```
 SELECT p.id
 FROM Post p
 LEFT JOIN Comment c ON p.id = c.postId
 GROUP BY p.id
 ORDER BY COUNT(c.id) DESC, p.id;
-\```
+```
 
   
 ---
