@@ -1,0 +1,186 @@
+\documentclass{article} 
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc} 
+\usepackage[russian]{babel}
+\usepackage{amsfonts} 
+\usepackage{amsmath} 
+\usepackage{amssymb} 
+\usepackage{fancyhdr} 
+\usepackage{float} 
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry} 
+\usepackage{graphicx} 
+\usepackage{hyperref}
+\usepackage{indentfirst}
+\usepackage{multicol}
+\usepackage{stackrel} 
+\usepackage{xcolor} 
+\usepackage{yhmath} 
+
+
+\begin{document} 
+\section{Матанализ от Виноградова}
+\subsection{}
+Пусть $f \in L, x \in \mathbb{R}, S \in \mathbb{R}$(или $\mathbb{C}$) и \\
+$$\int_{0}^{\pi}  \,\frac{\left\lvert f(x + t) - 2 S + f(x - t)\right\rvert }{t}dt < +\infty.$$
+Тогда ряд Фурье функции $f$ сходится к сумме $S$ в точке $x$:
+$$S_{n}(f,x) \xrightarrow[n\rightarrow{}\infty]{}S.$$
+\subsection{}
+
+\begin{enumerate}
+    \item $\widehat{f} \in C(\mathbb{R})$ и $\left\lvert \widehat{f}(y) \right\lvert \leqslant \,\frac{1}{\sqrt{2\pi}}\left\lvert \left\lvert f \right\lvert \right\lvert_{1}$ при всех $y \in \mathbb{R}$
+    \item $\widehat{f} \underset{y \rightarrow{} \infty}{\longrightarrow{}}0.$
+    \item 
+    \textbf{Производная преобразования Фурье.}
+    
+    {} Если $f \in L(\mathbb{R})$ и при нектором $r \in \mathbb{N}$ функция $t \mapsto t^r f(t)$ суммируема на $\mathbb{R}$, то $\widehat{f} \in C^{(r)} (\mathbb{R})$ 
+    и при всех $k \in [1 : r ], y \in \mathbb{R}$
+
+    $$\widehat{f}^{(k)}(y)=\frac{1}{\sqrt{2\pi}}\int_{R}^{}(-it)^kf(t)e^{-iyt}dt,$$
+    
+    причем $\widehat{f}^{(k)}(y) \underset{y \rightarrow{} \infty}{\longrightarrow{}} 0.$
+
+    \item
+    \textbf{Преобразование Фурье производной.}
+
+    Пусть $r \in \mathbb{N}, f \in C^{(r)}(\mathbb{R})$ и $f^{(k)} \in L(\mathbb{R})$ при всех $k \in [0 : r]$. Тогда при всех $k \in [1 : r]$, $y \in \mathbb{R}$
+    
+    $$\widehat{f^{(k)}}(y)=(iy)^k\widehat{f}(y).$$
+    \item
+    \textbf{Преобразование Фурье сдвига и сжатия.}
+
+    Если $h,y \in \mathbb{R}, a>0$, то
+    \begin{eqnarray*}
+    \widehat{f_{h}}(y)=e^{ihy}\widehat{f}(y), & \widehat{(f(a\vcenter{\hbox{.}}))}(y)=\displaystyle\frac{1}{a}\widehat{f}\displaystyle\left(\frac{y}{a}\right).
+    \end{eqnarray*}
+
+    \item 
+    \textbf{Преобразование Фурье свертки.}
+
+    Свертка $f * g$ определена почти везде, $f * g \in L(\mathbb{R}), f * g = g * f$ и
+    \begin{eqnarray*}
+        \widehat{f * g}(y) = \sqrt{2\pi}\widehat{f}(y)\widehat{g}(y), & y \in \mathbb{R}.
+    \end{eqnarray*}
+\end{enumerate}
+
+\section{Большое задание от доктора Тренча}
+\subsection{}
+{
+$W = \left|
+{\begin{array}{ccc}
+    e^x & e^{2x} & xe^{-x} \\
+    e^x & 2e^{2x} & e^{-x}(1-x) \\
+    e^x & 4e^{2x} & e^{-x}(x-2)
+\end{array} }
+\right| = \, e^{2x}(6x \, - \, 5); \, 
+W_1 = \left| 
+{\begin{array}{cc}
+    e^{2x} & xe^{-x} \\
+    2e^{2x} & e^{-2}(1-x)
+\end{array} }
+\right| = e^x(1 \, - \, 3x); \,
+W_2 = \linebreak
+\left| 
+{\begin{array}{cc}
+    e^{x} & xe^{-x} \\
+    e^{x} & e^{x}(1-x)
+\end{array} }
+\right| = 1 - 2x; \,
+W_3 = 
+\left|
+{\begin{array}{cc}
+    e^{2x} & e^{2x} \\
+    e^{2x} & 2e^{2x}
+\end{array} }
+\right| = e^{3x}; \, u^\prime_1  =  \displaystyle \frac{FW_1}{P_0W}  =  1  -  3x; \, u^\prime_2  =  -\frac{FW_2}{P_0W} = $
+\linebreak}
+$e^{-x}(2x-1);u_3^\prime = \displaystyle \frac{FW_2}{P_0W} = e^{2x};u_1 = \frac{x(2-3x)}{2};u_2=-e^{-x}(2x+1);u_3=\frac{e^{2x}}{2};y_p=u_1y_1+u_2y_2+u_3y_3= \\ -e^x(3x^2+x+2)/2.$ Since $\displaystyle-\frac{e^x}{2}$ is a solution of the complementary equation we take $\displaystyle y_p=-\frac{e^x(3x+1)x}{2}.$
+
+The general solution is $\displaystyle y=-\frac{e^x(3x+1)x}{2} + c_1e^x+c_2e^{2x}+c_3xe^{-2},$ so
+
+$$
+\left[ 
+{\begin{array}{l}
+    y \\
+    y^\prime \\
+    y^{\prime\prime}
+\end{array} }
+\right]
+=
+\left[
+{\begin{array}{c}
+    \displaystyle -\frac{e^x(3x+1)x}{2}\\
+    \displaystyle -\frac{e^x(3x^2+7x+1)}{2}\\
+    \displaystyle -\frac{e^x(3x^2+13x+8)}{2}
+\end{array} }
+\right]
++
+\left| 
+{\begin{array}{ccc}
+    e^x & e^{2x} & xe^{-x} \\
+    e^x & 2e^{2x} & e^{-x}(1-x) \\
+    e^x & 4e^{2x} & e^{-x}(x-2)
+\end{array} }
+\right|
+\left[ 
+{\begin{array}{c}
+    c_1 \\
+    c_2 \\
+    c_3
+\end{array} }
+\right].
+$$
+
+\noindent
+Setting $x = 0$ and imposing the initial conditions yields
+
+
+$$
+\left[ 
+{\begin{array}{c}
+    -4 \\
+    -\frac{3}{2} \\
+    -19
+\end{array} }
+\right]
+=
+\left[ 
+{\begin{array}{r}
+    0 \\
+    -\frac{1}{2}\\
+    -4
+\end{array} }
+\right]
++
+\left[
+{\begin{array}{ccr}
+    1 & 1 & 0 \\
+    1 & 2 & 1 \\
+    1 & 4 & -2
+\end{array} }
+\right]
+\left[ 
+{\begin{array}{c}
+    c_1 \\
+    c_2 \\
+    c_3
+\end{array} }
+\right].
+$$
+
+\noindent
+Solving this system yields $c_1=-3, c_2=-1, c_3=4.$ Therefore, $\displaystyle y = -\frac{e^x(3x+1)x}{2} - 3e^x - e^{2x}+4xe^{-x}.$
+
+
+\section{Маленькие задания от доктора Тренча}
+
+\subsection{}
+$\displaystyle t^6 \leftrightarrow \frac{6!}{s^7}$ and $e^{-t}$ sin$\, 3t \leftrightarrow \displaystyle \frac{3}{(s+1)^2+9},$ so $H(s)=\displaystyle \frac{3 \, \vcenter{\hbox{.}} \, 6!}{s^7 \, [(s+1)^2+9]}.$
+
+\subsection{}
+sin$\displaystyle \, at \leftrightarrow \frac{a}{s^2+a^2}$ and cos$\, \displaystyle bt \leftrightarrow \frac{s}{s^2+b^2},$ so $H(s) = \displaystyle \frac{as}{(s^2+a^2)(s^2+b^2)}.$
+
+\subsection{}
+sinh$\displaystyle \, at \leftrightarrow \frac{a}{s^2-a^2}$ and cosh$\displaystyle \, at \leftrightarrow \frac{1}{s^2-a^2},$ so $H(s) = \displaystyle \frac{as}{(s^2-a^2)^2}.$
+\pagestyle{empty}
+\normalsize 
+\end{document}
